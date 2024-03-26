@@ -472,7 +472,7 @@ export class BidiFrame extends Frame {
       flatten: true,
     });
     await this.browsingContext.subscribe([Bidi.ChromiumBidi.BiDiModule.Cdp]);
-    return new BidiCdpSession(this, sessionId);
+    return new BidiCdpSession(this, sessionId, true);
   }
 
   @throwIfDetached
