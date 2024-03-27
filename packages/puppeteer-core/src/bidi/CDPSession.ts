@@ -20,15 +20,13 @@ export class BidiCdpSession extends CDPSession {
   static sessions = new Map<string, BidiCdpSession>();
 
   #detached = false;
-  #userCreated: boolean;
   readonly #connection: BidiConnection | undefined = undefined;
   readonly #sessionId = Deferred.create<string>();
   readonly frame: BidiFrame;
 
-  constructor(frame: BidiFrame, sessionId?: string, userCreated = false) {
+  constructor(frame: BidiFrame, sessionId?: string) {
     super();
     this.frame = frame;
-    this.#userCreated = userCreated;
     if (!this.frame.page().browser().cdpSupported) {
       return;
     }
@@ -89,16 +87,8 @@ export class BidiCdpSession extends CDPSession {
       return;
     }
 
-    try {
-      if (this.#userCreated) {
-        await this.frame.client.send('Target.detachFromTarget', {
-          sessionId: this.id(),
-        });
-      }
-    } finally {
-      BidiCdpSession.sessions.delete(this.id());
-      this.#detached = true;
-    }
+    BidiCdpSession.sessions.delete(this.id());
+    this.#detached = true;
   }
 
   override id(): string {
