@@ -356,7 +356,7 @@ To fix, you'll need to install the missing dependencies and the latest Chromium
 package in your Dockerfile:
 
 ```Dockerfile
-FROM node:14-slim
+FROM node:18-slim
 
 # Install latest chrome dev package and fonts to support major charsets (Chinese, Japanese, Arabic, Hebrew, Thai and a few others)
 # Note: this installs the necessary libs to make the bundled version of Chromium that Puppeteer
@@ -381,6 +381,11 @@ RUN apt-get update \
 #     browser.launch({executablePath: 'google-chrome-stable'})
 # ENV PUPPETEER_SKIP_DOWNLOAD true
 
+# Create a new working directory and copy local files to the directory
+WORKDIR /app
+COPY . . 
+
+
 # Install puppeteer so it's available in the container.
 RUN npm init -y &&  \
     npm i puppeteer \
@@ -388,10 +393,11 @@ RUN npm init -y &&  \
     # same layer as npm install to keep re-chowned files from using up several hundred MBs more space
     && groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
     && mkdir -p /home/pptruser/Downloads \
+    && chown -R pptruser:pptruser /app \
     && chown -R pptruser:pptruser /home/pptruser \
-    && chown -R pptruser:pptruser /node_modules \
-    && chown -R pptruser:pptruser /package.json \
-    && chown -R pptruser:pptruser /package-lock.json
+    && chown -R pptruser:pptruser /app/node_modules \
+    && chown -R pptruser:pptruser /app/package.json \
+    && chown -R pptruser:pptruser /app/package-lock.json
 
 # Run everything after as non-privileged user.
 USER pptruser
