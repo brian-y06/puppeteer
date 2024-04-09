@@ -18,7 +18,7 @@ import type {BrowsingContext} from './BrowsingContext.js';
 export class Request extends EventEmitter<{
   /** Emitted when the request is redirected. */
   redirect: Request;
-  /** Emitted when the request succeeds. */
+  /** Emitted when the request requests authentication. */
   authenticate: void;
   /** Emitted when the request succeeds. */
   success: Bidi.Network.ResponseData;
