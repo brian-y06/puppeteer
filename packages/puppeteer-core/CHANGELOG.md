@@ -20,6 +20,14 @@ All notable changes to this project will be documented in this file. See [standa
   * dependencies
     * @puppeteer/browsers bumped from 1.5.1 to 1.6.0
 
+## [22.6.4](https://github.com/puppeteer/puppeteer/compare/puppeteer-core-v22.6.3...puppeteer-core-v22.6.4) (2024-04-09)
+
+
+### Bug Fixes
+
+* **a11y:** query only unignored nodes ([#12224](https://github.com/puppeteer/puppeteer/issues/12224)) ([e20cd64](https://github.com/puppeteer/puppeteer/commit/e20cd64fff374c4113777912c193f4a5d7d04297))
+* retain stale main frame for longer ([#12225](https://github.com/puppeteer/puppeteer/issues/12225)) ([aa5b182](https://github.com/puppeteer/puppeteer/commit/aa5b1824a5c82005fcfc05b002facfbbb9810f8f))
+
 ## [22.6.3](https://github.com/puppeteer/puppeteer/compare/puppeteer-core-v22.6.2...puppeteer-core-v22.6.3) (2024-04-05)
 
 
