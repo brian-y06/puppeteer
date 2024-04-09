@@ -113,6 +113,7 @@ export class Session
         return;
       }
       seen.add(info);
+      debugError('Emitting synthetic navigationStarted', info);
       this.emit('browsingContext.navigationStarted', info);
       this.emit('browsingContext.fragmentNavigated', info);
     });

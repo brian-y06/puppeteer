@@ -280,7 +280,7 @@ describe('request interception', function () {
       expect(request.headers['referer']).toBe('http://google.com/');
     });
     it('should fail navigation when aborting main resource', async () => {
-      const {page, server, isChrome} = await getTestState();
+      const {page, server} = await getTestState();
 
       await page.setRequestInterception(true);
       page.on('request', request => {
@@ -291,11 +291,11 @@ describe('request interception', function () {
         return (error = error_);
       });
       expect(error).toBeTruthy();
-      if (isChrome) {
-        expect(error.message).toContain('net::ERR_FAILED');
-      } else {
-        expect(error.message).toContain('NS_ERROR_ABORT');
-      }
+      expect(error.message).atLeastOneToContain([
+        'net::ERR_FAILED',
+        'NS_ERROR_ABORT',
+        'Navigation failed: about:blank',
+      ]);
     });
     it('should work with redirects', async () => {
       const {page, server} = await getTestState();

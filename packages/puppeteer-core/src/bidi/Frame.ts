@@ -351,16 +351,8 @@ export class BidiFrame extends Frame {
               }),
               raceWith(
                 fromEmitterEvent(navigation, 'fragment'),
-                fromEmitterEvent(navigation, 'failed').pipe(
-                  map(({url}) => {
-                    throw new Error(`Navigation failed: ${url}`);
-                  })
-                ),
-                fromEmitterEvent(navigation, 'aborted').pipe(
-                  map(({url}) => {
-                    throw new Error(`Navigation aborted: ${url}`);
-                  })
-                )
+                fromEmitterEvent(navigation, 'failed'),
+                fromEmitterEvent(navigation, 'aborted')
               ),
               switchMap(() => {
                 if (navigation.request) {

@@ -721,11 +721,8 @@ describe('network', function () {
         expect(response.status()).toBe(401);
       } catch (error) {
         // In headful, an error is thrown instead of 401.
-        if (
-          !(error as Error).message?.includes(
-            'net::ERR_INVALID_AUTH_CREDENTIALS'
-          )
-        ) {
+        const message: string | undefined = (error as Error).message;
+        if (!message?.includes('net::ERR_INVALID_AUTH_CREDENTIALS')) {
           throw error;
         }
       }
@@ -771,11 +768,8 @@ describe('network', function () {
         expect(response.status()).toBe(401);
       } catch (error) {
         // In headful, an error is thrown instead of 401.
-        if (
-          !(error as Error).message?.includes(
-            'net::ERR_INVALID_AUTH_CREDENTIALS'
-          )
-        ) {
+        const message: string | undefined = (error as Error).message;
+        if (!message?.includes('net::ERR_INVALID_AUTH_CREDENTIALS')) {
           throw error;
         }
       }
